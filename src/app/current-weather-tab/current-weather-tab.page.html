@@ -1,0 +1,14 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            Current Weather
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div slot="fixed">
+        <h1>{{data.temp}} <b>°F</b></h1>
+        <h1>{{data.main_weather}}</h1>
+    </div>
+</ion-content>
