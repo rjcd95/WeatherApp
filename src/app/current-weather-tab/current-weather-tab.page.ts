@@ -14,7 +14,8 @@ export class CurrentWeatherTab {
 
   data: currentWeatherData = {
     temp: 0,
-    main_weather: ""
+    weather_main: "",
+    weather_description: ""
   };
 
   ngOnInit() {
@@ -27,7 +28,8 @@ export class CurrentWeatherTab {
       .subscribe((response: currentWeatherResponse) => {
         this.data = {
           temp: response.main.temp,
-          main_weather: response.weather[0].main
+          weather_main: response.weather[0].main,
+          weather_description: response.weather[0].description
         };
       });
   }

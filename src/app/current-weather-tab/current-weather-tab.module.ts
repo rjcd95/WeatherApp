@@ -12,6 +12,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
+
     RouterModule.forChild([{ path: '', component: CurrentWeatherTab }])
   ],
   declarations: [CurrentWeatherTab]
