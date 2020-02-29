@@ -4,15 +4,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CurrentWeatherTab } from './current-weather-tab.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+import { WeatherImageComponentModule } from '../weather-image/weather-image.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
-
+    WeatherImageComponentModule,
     RouterModule.forChild([{ path: '', component: CurrentWeatherTab }])
   ],
   declarations: [CurrentWeatherTab]
