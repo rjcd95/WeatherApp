@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { currentWeatherResponse } from '../model/current-weather-response';
+import { CurrentWeatherResponse } from '../model/current-weather-response';
+import { ForeCastResponse } from '../model/forecast-response';
 
 const apiUrl = 'https://api.openweathermap.org/data/2.5/'
 const apiKey = 'a3f4197c3aadb3b96726a0095b59b08e';
@@ -14,8 +15,13 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    getCurrentWeather(location: string): Observable<currentWeatherResponse> {
+    getCurrentWeather(location: string): Observable<CurrentWeatherResponse> {
         const url = `${apiUrl}weather?q=${location}&${unit}&appid=${apiKey}`;
-        return this.http.get<currentWeatherResponse>(url);
+        return this.http.get<CurrentWeatherResponse>(url);
+    }
+
+    getForeCast(location: string): Observable<ForeCastResponse> {
+        const url = `${apiUrl}forecast?q=${location}&${unit}&appid=${apiKey}`;
+        return this.http.get<ForeCastResponse>(url);
     }
 }
