@@ -3,6 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ApiService } from './../api/api.service';
 import { CurrentWeatherResponse } from '../model/current-weather-response';
 import { CurrentWeatherData } from '../model/current-weather-data';
+import { UtilsService } from '../utils/utils.service';
 
 @Component({
   selector: 'app-tab1',
@@ -11,12 +12,14 @@ import { CurrentWeatherData } from '../model/current-weather-data';
 })
 export class CurrentWeatherTab {
 
-  constructor(private apiService: ApiService, private geolocation: Geolocation) { }
+  constructor(private apiService: ApiService, private utilsService: UtilsService,
+    private geolocation: Geolocation) { }
 
   data: CurrentWeatherData = {
     temp: 0,
     weather_main: "",
-    weather_description: ""
+    weather_description: "",
+    image: "/assets/images/dunno.png",
   };
 
   ngOnInit() {
@@ -37,10 +40,12 @@ export class CurrentWeatherTab {
     lon = lon || -86.3985472;
     this.apiService.getCurrentWeather(lat, lon)
       .subscribe((response: CurrentWeatherResponse) => {
+        let image = this.utilsService.getImageSrc(response.weather[0].main, response.weather[0].description);
         this.data = {
           temp: response.main.temp,
           weather_main: response.weather[0].main,
-          weather_description: response.weather[0].description
+          weather_description: response.weather[0].description,
+          image: image
         };
       });
   }

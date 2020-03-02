@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { ApiService } from '../api/api.service';
 import { ForeCastResponse } from '../model/forecast-response';
 import { ForeCastData } from '../model/forecast-data';
+import { UtilsService } from '../utils/utils.service';
 
 @Component({
   selector: 'app-forecast',
@@ -12,7 +13,8 @@ import { ForeCastData } from '../model/forecast-data';
 })
 export class ForecastTabPage {
 
-  constructor(private apiService: ApiService, private geolocation: Geolocation) { }
+  constructor(private apiService: ApiService, private utilsService: UtilsService,
+    private geolocation: Geolocation) { }
 
   data: Array<ForeCastData> = [];
 
@@ -36,13 +38,15 @@ export class ForecastTabPage {
       .subscribe((response: ForeCastResponse) => {
         let dataResponse = response.list;
         dataResponse.forEach(item => {
+          let image = this.utilsService.getImageSrc(item.weather[0].main, item.weather[0].description);
           let forecast = {
             weather_main: item.weather[0].main,
             weather_description: item.weather[0].description,
             date: moment(item.dt_txt, 'YYYY-MM-DD hh:mm:ss').format('ddd, MMM DD, YYYY'),
             temp_min: item.main.temp_min,
-            temp_max: item.main.temp_max
-          }
+            temp_max: item.main.temp_max,
+            image: image
+          };
           this.data.push(forecast);
         })
       });

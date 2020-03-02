@@ -4,4 +4,5 @@ export interface ForeCastData {
     date: string;
     temp_min: number;
     temp_max: number;
+    image: string;
 }

@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
     <div class="center">
         <h1><b>{{data.temp}} °F</b></h1>
-        <app-weather-image weather_main="{{data.weather_main}}" weather_description="{{data.weather_description}}"></app-weather-image>
+        <img src="{{data.image}}" alt="{{data.weather_description}}">
         <h1>{{data.weather_main}}</h1>
     </div>
 </ion-content>

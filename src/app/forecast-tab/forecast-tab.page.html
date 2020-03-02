@@ -10,8 +10,7 @@
     <ion-list>
         <ion-item *ngFor="let item of data">
             <ion-thumbnail slot="start">
-                <app-weather-image weather_main="{{item.weather_main}}" weather_description="{{item.weather_description}}">
-                </app-weather-image>
+                <img src="{{item.image}}" alt="{{item.weather_description}}">
             </ion-thumbnail>
             <ion-label>
                 <p><b>{{item.date}}</b></p>
