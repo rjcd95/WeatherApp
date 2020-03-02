@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            Forecast
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-list>
+        <ion-item *ngFor="let item of data">
+            <ion-thumbnail slot="start">
+                <app-weather-image weather_main="{{item.weather_main}}" weather_description="{{item.weather_description}}">
+                </app-weather-image>
+            </ion-thumbnail>
+            <ion-label>
+                <p><b>{{item.date}}</b></p>
+                <p><b>{{item.weather_main}}</b></p>
+                <p><b>Low: {{item.temp_min}} °F</b></p>
+                <p><b>High: {{item.temp_max}} °F</b></p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
