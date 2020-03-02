@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ApiService } from './../api/api.service';
 import { CurrentWeatherResponse } from '../model/current-weather-response';
 import { CurrentWeatherData } from '../model/current-weather-data';
@@ -10,7 +11,7 @@ import { CurrentWeatherData } from '../model/current-weather-data';
 })
 export class CurrentWeatherTab {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private geolocation: Geolocation) { }
 
   data: CurrentWeatherData = {
     temp: 0,
@@ -19,12 +20,22 @@ export class CurrentWeatherTab {
   };
 
   ngOnInit() {
-    this.getCurrentWeather();
+    this.getCurrentLocation();
   }
 
-  getCurrentWeather() {
-    const currentLocation = 'Managua,NI';
-    this.apiService.getCurrentWeather(currentLocation)
+  getCurrentLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let coords = resp.coords;
+      this.getCurrentWeather(coords.latitude, coords.longitude)
+    }).catch(() => {
+      this.getCurrentWeather()
+    });
+  }
+
+  getCurrentWeather(lat?: number, lon?: number) {
+    lat = lat || 12.0976239;
+    lon = lon || -86.3985472;
+    this.apiService.getCurrentWeather(lat, lon)
       .subscribe((response: CurrentWeatherResponse) => {
         this.data = {
           temp: response.main.temp,

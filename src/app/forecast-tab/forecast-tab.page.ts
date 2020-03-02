@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import * as moment from 'moment';
 import { ApiService } from '../api/api.service';
 import { ForeCastResponse } from '../model/forecast-response';
 import { ForeCastData } from '../model/forecast-data';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-forecast',
@@ -11,19 +12,29 @@ import * as moment from 'moment';
 })
 export class ForecastTabPage {
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private geolocation: Geolocation) { }
 
   data: Array<ForeCastData> = [];
+
   ngOnInit() {
-    this.getForeCast();
+    this.getCurrentLocation();
   }
 
-  getForeCast() {
-    const currentLocation = 'Managua,NI';
-    this.apiService.getForeCast(currentLocation)
+  getCurrentLocation() {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      let coords = resp.coords;
+      this.getForeCast(coords.latitude, coords.longitude)
+    }).catch(() => {
+      this.getForeCast()
+    });
+  }
+
+  getForeCast(lat?: number, lon?: number) {
+    lat = lat || 12.0976239;
+    lon = lon || -86.3985472;
+    this.apiService.getForeCast(lat, lon)
       .subscribe((response: ForeCastResponse) => {
         let dataResponse = response.list;
-        console.log('dataResponse', dataResponse);
         dataResponse.forEach(item => {
           let forecast = {
             weather_main: item.weather[0].main,
