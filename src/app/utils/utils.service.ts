@@ -12,7 +12,7 @@ export class UtilsService {
         let imgSrc = `${imgSrcBase}dunno.png`;
         switch (weather_main) {
             case 'Clouds':
-                imgSrc = (weather_description == 'few clouds') ? `${imgSrcBase}dunno.png`
+                imgSrc = (weather_description == 'few clouds') ? `${imgSrcBase}cloudy.png`
                     : `${imgSrcBase}overcast.png`
                 break;
             case 'Thunderstorm':
