@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from './../api/api.service';
-import { currentWeatherResponse } from '../model/current-weather-response';
-import { currentWeatherData } from '../model/current-weather-data';
+import { CurrentWeatherResponse } from '../model/current-weather-response';
+import { CurrentWeatherData } from '../model/current-weather-data';
 
 @Component({
   selector: 'app-tab1',
@@ -12,7 +12,7 @@ export class CurrentWeatherTab {
 
   constructor(private apiService: ApiService) { }
 
-  data: currentWeatherData = {
+  data: CurrentWeatherData = {
     temp: 0,
     weather_main: "",
     weather_description: ""
@@ -25,7 +25,7 @@ export class CurrentWeatherTab {
   getCurrentWeather() {
     const currentLocation = 'Managua,NI';
     this.apiService.getCurrentWeather(currentLocation)
-      .subscribe((response: currentWeatherResponse) => {
+      .subscribe((response: CurrentWeatherResponse) => {
         this.data = {
           temp: response.main.temp,
           weather_main: response.weather[0].main,
