@@ -16,13 +16,23 @@ export class ForecastTabPage {
   constructor(private apiService: ApiService, private utilsService: UtilsService,
     private geolocation: Geolocation) { }
 
+  isLoading: boolean;
   data: Array<ForeCastData> = [];
+  skeletonIndexs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  refreshEvent: any;
+  cityName: string = "";
 
   ngOnInit() {
     this.getCurrentLocation();
   }
 
+  doRefresh(event) {
+    this.refreshEvent = event;
+    this.getCurrentLocation();
+  }
+
   getCurrentLocation() {
+    this.isLoading = true;
     this.geolocation.getCurrentPosition().then((resp) => {
       let coords = resp.coords;
       this.getForeCast(coords.latitude, coords.longitude)
@@ -35,20 +45,32 @@ export class ForecastTabPage {
     lat = lat || 12.0976239;
     lon = lon || -86.3985472;
     this.apiService.getForeCast(lat, lon)
-      .subscribe((response: ForeCastResponse) => {
-        let dataResponse = response.list;
-        dataResponse.forEach(item => {
-          let image = this.utilsService.getImageSrc(item.weather[0].main, item.weather[0].description);
-          let forecast = {
-            weather_main: item.weather[0].main,
-            weather_description: item.weather[0].description,
-            date: moment(item.dt_txt, 'YYYY-MM-DD hh:mm:ss').format('ddd, MMM DD, YYYY'),
-            temp_min: item.main.temp_min,
-            temp_max: item.main.temp_max,
-            image: image
-          };
-          this.data.push(forecast);
-        })
-      });
+      .subscribe(
+        (response: ForeCastResponse) => {
+          let dataResponse = response.list;
+          this.cityName = `${response.city.name}, ${response.city.country}`;
+          dataResponse.forEach(item => {
+            let image = this.utilsService.getImageSrc(item.weather[0].main, item.weather[0].description);
+            let forecast = {
+              weather_main: item.weather[0].main,
+              weather_description: item.weather[0].description,
+              date: moment(item.dt_txt, 'YYYY-MM-DD HH:mm:ss').format('ddd, MMM DD, YYYY hh:mm a'),
+              temp_min: item.main.temp_min,
+              temp_max: item.main.temp_max,
+              image: image
+            };
+            this.data.push(forecast);
+          })
+          this.completeLoading();
+        }, () => {
+          this.completeLoading();
+        });
+  }
+
+  completeLoading() {
+    this.isLoading = false;
+    if (this.refreshEvent) {
+      this.refreshEvent.target.complete();
+    }
   }
 }

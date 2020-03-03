@@ -7,9 +7,36 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="center">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="center" *ngIf="!isLoading">
         <h1><b>{{data.temp}} °F</b></h1>
         <img src="{{data.image}}" alt="{{data.weather_description}}">
         <h1>{{data.weather_main}}</h1>
+        <div class="footer-text">
+            <ion-icon item-start name="pin"></ion-icon>
+            <ion-label>
+                <span>
+                    {{cityName}}
+                </span>
+            </ion-label>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="center">
+        <ion-label>
+            <h1>
+                <ion-skeleton-text animated style="margin: 15px 30% 15px 30%; width: 40%; height: 20px;"></ion-skeleton-text>
+            </h1>
+        </ion-label>
+        <ion-avatar slot="start" text-center>
+            <ion-skeleton-text animated style="margin: 0 0 0 225%;"></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+            <h1>
+                <ion-skeleton-text animated style="margin: 15px 30% 15px 30%; width: 40%; height: 20px;"></ion-skeleton-text>
+            </h1>
+        </ion-label>
     </div>
 </ion-content>

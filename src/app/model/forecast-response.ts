@@ -7,9 +7,15 @@ interface ForeCastList {
     dt_txt: string;
 }
 
+interface City {
+    name: string;
+    country: string;
+}
+
 export interface ForeCastResponse {
     cod: string;
     message: number;
     cnt: number;
     list: ForeCastList[];
+    city: City;
 }

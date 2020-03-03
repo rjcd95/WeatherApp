@@ -21,12 +21,21 @@ export class CurrentWeatherTab {
     weather_description: "",
     image: "/assets/images/dunno.png",
   };
+  isLoading: boolean;
+  refreshEvent: any;
+  cityName: string = "";
 
   ngOnInit() {
     this.getCurrentLocation();
   }
 
+  doRefresh(event) {
+    this.refreshEvent = event;
+    this.getCurrentLocation();
+  }
+
   getCurrentLocation() {
+    this.isLoading = true;
     this.geolocation.getCurrentPosition().then((resp) => {
       let coords = resp.coords;
       this.getCurrentWeather(coords.latitude, coords.longitude)
@@ -39,15 +48,27 @@ export class CurrentWeatherTab {
     lat = lat || 12.0976239;
     lon = lon || -86.3985472;
     this.apiService.getCurrentWeather(lat, lon)
-      .subscribe((response: CurrentWeatherResponse) => {
-        let image = this.utilsService.getImageSrc(response.weather[0].main, response.weather[0].description);
-        this.data = {
-          temp: response.main.temp,
-          weather_main: response.weather[0].main,
-          weather_description: response.weather[0].description,
-          image: image
-        };
-      });
+      .subscribe(
+        (response: CurrentWeatherResponse) => {
+          this.cityName = `${response.name}, ${response.sys.country}`
+          let image = this.utilsService.getImageSrc(response.weather[0].main, response.weather[0].description);
+          this.data = {
+            temp: response.main.temp,
+            weather_main: response.weather[0].main,
+            weather_description: response.weather[0].description,
+            image: image
+          };
+          this.completeLoading();
+        }, () => {
+          this.completeLoading();
+        });
+  }
+
+  completeLoading() {
+    this.isLoading = false;
+    if (this.refreshEvent) {
+      this.refreshEvent.target.complete();
+    }
   }
 
 }
