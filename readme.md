@@ -9,8 +9,7 @@ This is an Ionic application that uses the openweathermap api to get weather and
 Add your openweathermap API_KEY in enviroment file (src/enviroments/enviroment)
 
 ```sh
-$ cd src/enviroments/
--- enviroment.prod.ts | enviroment.ts
+$ cd src/enviroments/ - enviroment.prod.ts | enviroment.ts
 ...
 $ apiKey: 'xxxxyyyyzzzz1234'
 ...
