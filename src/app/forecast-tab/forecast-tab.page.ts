@@ -20,6 +20,7 @@ export class ForecastTabPage {
   skeletonIndexs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   refreshEvent: any;
   cityName: string = "";
+  error: any = null;
 
   ngOnInit() {
     this.getCurrentLocation();
@@ -59,9 +60,11 @@ export class ForecastTabPage {
               image: image
             };
             this.data.push(forecast);
-          })
+          });
+          this.error = null;
           this.completeLoading();
         }, () => {
+          this.error = 'Ocurrio un error al obtener los datos';
           this.completeLoading();
         });
   }

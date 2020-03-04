@@ -10,7 +10,8 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-    <div class="center" *ngIf="!isLoading">
+
+    <div class="center" *ngIf="!isLoading && error == null">
         <h1><b>{{data.temp}} °F</b></h1>
         <img src="{{data.image}}" alt="{{data.weather_description}}">
         <h1>{{data.weather_main}}</h1>
@@ -24,7 +25,7 @@
         </div>
     </div>
 
-    <div *ngIf="isLoading" class="center">
+    <div *ngIf="isLoading && error == null" class="center">
         <ion-label>
             <h1>
                 <ion-skeleton-text animated style="margin: 15px 30% 15px 30%; width: 40%; height: 20px;"></ion-skeleton-text>
@@ -37,6 +38,14 @@
             <h1>
                 <ion-skeleton-text animated style="margin: 15px 30% 15px 30%; width: 40%; height: 20px;"></ion-skeleton-text>
             </h1>
+        </ion-label>
+    </div>
+
+    <div *ngIf="!isLoading && error != null" class="center">
+        <ion-label style="margin: 30%">
+            <h3>
+                {{error}}
+            </h3>
         </ion-label>
     </div>
 </ion-content>

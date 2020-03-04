@@ -10,7 +10,8 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-    <div *ngIf="!isLoading">
+
+    <div *ngIf="!isLoading  && error == null">
         <ion-list>
             <ion-item *ngFor="let item of data">
                 <ion-thumbnail slot="start">
@@ -33,7 +34,8 @@
             </ion-label>
         </div>
     </div>
-    <div *ngIf="isLoading">
+
+    <div *ngIf="isLoading && error == null">
         <ion-list>
             <ion-item *ngFor="let index of skeletonIndexs">
                 <ion-avatar slot="start">
@@ -55,5 +57,13 @@
                 </ion-label>
             </ion-item>
         </ion-list>
+    </div>
+
+    <div *ngIf="!isLoading && error != null" class="center">
+        <ion-label style="margin: 30%">
+            <h3>
+                {{error}}
+            </h3>
+        </ion-label>
     </div>
 </ion-content>

@@ -8,7 +8,6 @@ import { environment as env } from '../../environments/environment';
 const apiUrl = env.apiUrl;
 const apiKey = env.apiKey;;
 const unit = 'imperial';
-//
 
 @Injectable({
     providedIn: 'root',

@@ -24,6 +24,7 @@ export class CurrentWeatherTab {
   isLoading: boolean;
   refreshEvent: any;
   cityName: string = "";
+  error: any = null;
 
   ngOnInit() {
     this.getCurrentLocation();
@@ -58,8 +59,10 @@ export class CurrentWeatherTab {
             weather_description: response.weather[0].description,
             image: image
           };
+          this.error = null;
           this.completeLoading();
         }, () => {
+          this.error = 'Ocurrio un error al obtener los datos';
           this.completeLoading();
         });
   }
