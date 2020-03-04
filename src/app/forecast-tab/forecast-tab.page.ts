@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import * as moment from 'moment';
 import { ApiService } from '../api/api.service';
 import { ForeCastResponse } from '../model/forecast-response';
 import { ForeCastData } from '../model/forecast-data';
@@ -54,7 +53,7 @@ export class ForecastTabPage {
             let forecast = {
               weather_main: item.weather[0].main,
               weather_description: item.weather[0].description,
-              date: moment(item.dt_txt, 'YYYY-MM-DD HH:mm:ss').format('ddd, MMM DD, YYYY hh:mm a'),
+              date: this.utilsService.getDate(item.dt_txt),
               temp_min: item.main.temp_min,
               temp_max: item.main.temp_max,
               image: image
