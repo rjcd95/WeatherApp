@@ -13,6 +13,7 @@ This is an Ionic application that uses the openweathermap api to get weather and
 - Implement "pull to refresh" effect to reload data.
 - Use custom image for weather state.
 - Show current location at bottom of the main view (above tabs bar).
+- Show error message when data could not be loaded
 
 ## Usage
 
