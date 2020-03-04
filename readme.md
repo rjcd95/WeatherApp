@@ -1,6 +1,18 @@
 # Ionic Weather App
 
-This is an Ionic application that uses the openweathermap api to get weather and forecast information by current location.
+This is an Ionic application that uses the openweathermap api to get weather and forecast information by current location. 
+
+## Features
+- Use 2 tabs:
+  - Current Weather
+  - Forecast (Show info for 5 days every 3 hours).
+- Use OpenWeatherMap API.
+- Get current location (Web browsers and mobile devices).
+- Use default coordinates in case of location permission are disabled.
+- Implement skeleton effect while data is loading.
+- Implement "pull to refresh" effect to reload data.
+- Use custom image for weather state.
+- Show current location at bottom of the main view (above tabs bar).
 
 ## Usage
 
@@ -20,7 +32,7 @@ $ apiKey: 'xxxxyyyyzzzz1234'
 Access to directory
 
 ```sh
-$ weatherApp
+$ cd weatherApp
 ```
 
 Install the dependencies
