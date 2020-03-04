@@ -23,8 +23,9 @@ temp/
 .tmp/
 hooks/
 
-# Ionic 3 plugins files
 platforms/
+android/
+ios/
 plugins/
 plugins/android.json
 plugins/ios.json
