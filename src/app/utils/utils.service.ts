@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root',
@@ -7,9 +8,14 @@ export class UtilsService {
 
     constructor() { }
 
+    getDate(dt_txt: string) {
+        if (!dt_txt) return '';
+        return moment(dt_txt, 'YYYY-MM-DD HH:mm:ss').format('ddd, MMM DD, YYYY hh:mm a');
+    }
+
     getImageSrc(weather_main: string, weather_description: string): string {
         const imgSrcBase = '/assets/images/';
-        let imgSrc = `${imgSrcBase}dunno.png`;
+        let imgSrc = '';
         switch (weather_main) {
             case 'Clouds':
                 imgSrc = (weather_description == 'few clouds') ? `${imgSrcBase}cloudy.png`
@@ -41,6 +47,7 @@ export class UtilsService {
                 break;
 
             default:
+                imgSrc = `${imgSrcBase}dunno.png`
                 break;
         }
         return imgSrc;
