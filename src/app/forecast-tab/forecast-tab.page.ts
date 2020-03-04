@@ -27,6 +27,7 @@ export class ForecastTabPage {
   }
 
   doRefresh(event) {
+    this.error = null;
     this.refreshEvent = event;
     this.getCurrentLocation();
   }

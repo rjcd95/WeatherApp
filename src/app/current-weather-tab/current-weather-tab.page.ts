@@ -31,6 +31,7 @@ export class CurrentWeatherTab {
   }
 
   doRefresh(event) {
+    this.error = null;
     this.refreshEvent = event;
     this.getCurrentLocation();
   }
