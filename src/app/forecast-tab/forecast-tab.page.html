@@ -7,17 +7,53 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-list>
-        <ion-item *ngFor="let item of data">
-            <ion-thumbnail slot="start">
-                <img src="{{item.image}}" alt="{{item.weather_description}}">
-            </ion-thumbnail>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="!isLoading">
+        <ion-list>
+            <ion-item *ngFor="let item of data">
+                <ion-thumbnail slot="start">
+                    <img src="{{item.image}}" alt="{{item.weather_description}}">
+                </ion-thumbnail>
+                <ion-label>
+                    <p><b>{{item.date}}</b></p>
+                    <p><b>{{item.weather_main}}</b></p>
+                    <p><b>Low: {{item.temp_min}} °F</b></p>
+                    <p><b>High: {{item.temp_max}} °F</b></p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <div class="footer-text">
+            <ion-icon item-start name="pin"></ion-icon>
             <ion-label>
-                <p><b>{{item.date}}</b></p>
-                <p><b>{{item.weather_main}}</b></p>
-                <p><b>Low: {{item.temp_min}} °F</b></p>
-                <p><b>High: {{item.temp_max}} °F</b></p>
+                <span>
+                        {{cityName}}
+                    </span>
             </ion-label>
-        </ion-item>
-    </ion-list>
+        </div>
+    </div>
+    <div *ngIf="isLoading">
+        <ion-list>
+            <ion-item *ngFor="let index of skeletonIndexs">
+                <ion-avatar slot="start">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                    <p>
+                        <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
 </ion-content>

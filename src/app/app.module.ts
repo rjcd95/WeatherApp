@@ -10,6 +10,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// import { HttpProvider } from './providers/http.provider';
+import { HTTP } from '@ionic-native/http/ngx';
+import { HttpAngularProvider } from './providers/http-angular.provider';
+import { HttpNativeProvider } from './providers/http-native.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +23,10 @@ import { AppComponent } from './app.component';
     StatusBar,
     SplashScreen,
     Geolocation,
+    HTTP,
+    HttpAngularProvider,
+    HttpNativeProvider,
+    // HttpProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
